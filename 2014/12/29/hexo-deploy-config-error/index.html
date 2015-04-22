@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>运行： hexo deploy 命令时候，报错 bad config file line | 星星blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="运行： hexo deploy 命令时候，报错 bad config file line 1 in .git/config,下面是错误信息,在git bash下面运行 hexo deploy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="运行： hexo deploy 命令时候，报错 bad config file line">
+<meta property="og:url" content="http://bigxing.github.io/2014/12/29/hexo-deploy-config-error/index.html">
+<meta property="og:site_name" content="星星blog">
+<meta property="og:description" content="运行： hexo deploy 命令时候，报错 bad config file line 1 in .git/config,下面是错误信息,在git bash下面运行 hexo deploy">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="运行： hexo deploy 命令时候，报错 bad config file line">
+<meta name="twitter:description" content="运行： hexo deploy 命令时候，报错 bad config file line 1 in .git/config,下面是错误信息,在git bash下面运行 hexo deploy">
+  
+    <link rel="alternative" href="/atom.xml" title="星星blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">所思所想</p>
+		
+
+		
+			<div class="onoffswitch">
+			    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+			    <label class="onoffswitch-label" for="myonoffswitch">
+			        <span class="onoffswitch-inner"></span>
+			        <span class="onoffswitch-switch"></span>
+			    </label>
+			</div>
+		
+
+		<div class="switch-area">
+			<section class="first-part">
+				<nav class="header-menu">
+					<ul>
+					
+						<li><a href="/">主页</a></li>
+			        
+						<li><a href="/archives">所有文章</a></li>
+			        
+						<li><a href="/about">关于</a></li>
+			        
+					</ul>
+				</nav>
+				<nav class="header-nav">
+					<div class="social">
+						
+							<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+				        
+							<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+				        
+							<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+				        
+							<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+				        
+					</div>
+				</nav>
+			</section>
+			
+			
+			<section class="second-part">
+				<div class="widget tagcloud">
+					<a href="/tags/cgi/" style="font-size: 10px;">cgi</a><a href="/tags/http/" style="font-size: 13.33px;">http</a><a href="/tags/php/" style="font-size: 13.33px;">php</a><a href="/tags/思考/" style="font-size: 13.33px;">思考</a><a href="/tags/技术/" style="font-size: 16.67px;">技术</a><a href="/tags/技术-error/" style="font-size: 10px;">技术,error</a><a href="/tags/数据结构/" style="font-size: 20px;">数据结构</a><a href="/tags/服务器/" style="font-size: 13.33px;">服务器</a><a href="/tags/服务器，-c-c/" style="font-size: 10px;">服务器， c/c++</a><a href="/tags/算法/" style="font-size: 20px;">算法</a>
+				</div>
+			</section>
+			
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+			</hgroup>
+			
+			<p class="header-subtitle">所思所想</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-hexo-deploy-config-error" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/12/29/hexo-deploy-config-error/" class="article-date">
+  	<time datetime="2014-12-29T06:31:19.000Z" itemprop="datePublished">Dec 29 2014</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/other/">other</a>
+  </div>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/技术-error/">技术,error</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      运行： hexo deploy 命令时候，报错 bad config file line
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>运行： hexo deploy 命令时候，报错 bad config file line 1 in .git/config,下面是错误信息,<br>在git bash下面运行 <code>hexo deploy</code></p>
+<a id="more"></a>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br><span class="line">[info] Start <span class="string">deploying:</span> github</span><br><span class="line">[info] Clearing .deploy folder...</span><br><span class="line">[info] Copying files from <span class="keyword">public</span> folder...</span><br><span class="line"><span class="string">fatal:</span> bad config file line <span class="number">1</span> <span class="keyword">in</span> .git/config</span><br><span class="line"><span class="string">fatal:</span> bad config file line <span class="number">1</span> <span class="keyword">in</span> .git/config</span><br><span class="line"><span class="string">fatal:</span> bad config file line <span class="number">1</span> <span class="keyword">in</span> .git/config</span><br><span class="line">[info] Deploy <span class="string">done:</span> github</span><br></pre></td></tr></table></figure>
+<h2 id="分析错误信息，找原因">分析错误信息，找原因</h2><p>看上面的错误信息，应该是 github 的配置信息有问题， 用命令 <code>cd  .deploy/.git/</code> 进入该目录，用编辑器打开config文件， 里面居然啥内容都没有<br>我们用命令验证下，在 git bash 上用命令 <code>cd .deploy</code>,  进入到 .deploy 目录， 然后运行 <code>git status</code>，出现下面的错误信息：<br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">cd</span> .deploy/ </span><br><span class="line">Administrator@CHINA-5CBAE4A74 /<span class="keyword">e</span>/jinshankuaip </span><br><span class="line">$ git status </span><br><span class="line">fatal: bad config <span class="keyword">file</span> <span class="keyword">line</span> 1 <span class="keyword">in</span> .git/config</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>说明config文件确实是啥内容也没有，好了,既然找到了原因，<br>那么解决办法就很简单了，<br>找到你的另外的github.com的项目，到项目文件下复制一份 config 文件的内容到 .deploy/.git/config 里面，保存</p>
+</blockquote>
+<p>下面是config的内容：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[core] </span><br><span class="line">  <span class="variable">repositoryformatversion =</span> <span class="number">0</span> </span><br><span class="line">  <span class="variable">filemode =</span> <span class="constant">false</span> </span><br><span class="line">  <span class="variable">bare =</span> <span class="constant">false</span> </span><br><span class="line">  <span class="variable">logallrefupdates =</span> <span class="constant">true</span> </span><br><span class="line">  <span class="variable">symlinks =</span> <span class="constant">false</span> </span><br><span class="line">  <span class="variable">ignorecase =</span> <span class="constant">true</span> </span><br><span class="line">  <span class="variable">hideDotFiles =</span> dotGitOnly </span><br><span class="line">[remote <span class="string">"origin"</span>] </span><br><span class="line">  <span class="variable">url =</span> https://github.com/bigxing/bigxing.github.io.git </span><br><span class="line">  <span class="variable">fetch =</span> +refs/heads<span class="comment">/*:refs/remotes/origin<span class="comment">/* </span><br><span class="line">[branch "master"] </span><br><span class="line">  remote = https://github.com/bigxing/bigxing.github.io.git</span><br><span class="line">  merge = refs/heads/master</span></span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><b>注意</b>：把上面的 url 和 remote 改成你自己的 git, 我的是 <a href="https://github.com/bigxing/bigxing.github.io.git" target="_blank" rel="external">https://github.com/bigxing/bigxing.github.io.git</a></p>
+</blockquote>
+<h2 id="验证配置信息：">验证配置信息：</h2><p>在 git bash 下面敲命令 <code>git status</code>， 就会出现很多信息<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">$ git status</span><br><span class="line"><span class="preprocessor"># On branch master</span></span><br><span class="line"><span class="preprocessor"># Changes not staged for commit:</span></span><br><span class="line"><span class="preprocessor">#   (use "git add &lt;file&gt;..." to update what will be committed)</span></span><br><span class="line"><span class="preprocessor">#   (use "git checkout -- &lt;file&gt;..." to discard changes in working</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor">#       modified:   2014/10/31/hello-world/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   2014/11/06/tech-employee-improve/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   2014/11/20/http-guide-note-one/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   about/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   archives/2014/10/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   archives/2014/11/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   archives/2014/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   archives/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   "categories/\346\234\215\345\212\241\345\231\25</span></span><br><span class="line"><span class="preprocessor">#       modified:   "categories/\346\235\202\350\201\212/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   tags/http/index.html</span></span><br><span class="line"><span class="preprocessor">#       modified:   "tags/\346\200\235\350\200\203/index.html"</span></span><br><span class="line"><span class="preprocessor">#       modified:   "tags/\346\212\200\346\234\257/index.html"</span></span><br><span class="line"><span class="preprocessor">#       modified:   "tags/\346\234\215\345\212\241\345\231\250/inde</span></span><br><span class="line"><span class="preprocessor">#</span></span><br><span class="line"><span class="preprocessor"># Untracked files:</span></span><br><span class="line"><span class="preprocessor">#   (use "git add &lt;file&gt;..." to include in what will be committed)</span></span><br></pre></td></tr></table></figure></p>
+<p>说明添加 config 的内容，成功了。<br>最后在 git bash 下敲如下命令<br><figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ git deploy</span><br><span class="line"></span><br><span class="line">Branch master <span class="built_in">set</span> up <span class="keyword">to</span> track remote branch master from https:<span class="comment">//github.com/bigxing/bigxing.github.io.git.</span></span><br><span class="line"><span class="keyword">To</span> https:<span class="comment">//github.com/bigxing/bigxing.github.io.git</span></span><br><span class="line">   <span class="number">55</span>d1451<span class="attribute">...</span><span class="number">0</span>ab67f  master <span class="subst">-&gt; </span>master</span><br><span class="line"><span class="preprocessor">[</span>info<span class="preprocessor">]</span><span class="markup"> Deploy done: github</span></span><br></pre></td></tr></table></figure></p>
+<p>就顺利的把内容commit到远程github上了</p>
+<p>好了，最后，你可以愉快的浏览你的网站内容了</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/12/31/program-ideas-and-linear-algebra/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          程序观点下的线性代数[转]
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/12/29/c-type-convert/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C/C++类型转换到底发生了什么[转]</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="hexo-deploy-config-error" data-title="运行： hexo deploy 命令时候，报错 bad config file line" data-url="http://bigxing.github.io/2014/12/29/hexo-deploy-config-error/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 星星(bigxing)
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?7d4572811c8b3d849cded7f14c0ab880";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  </div>
+</body>
+</html>

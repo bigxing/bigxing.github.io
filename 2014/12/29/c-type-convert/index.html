@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>C/C++类型转换到底发生了什么[转] | 星星blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="— 转载C/C++中， 浮点数，float以及 double 在内存中是怎样存储的？ 
+假如，我有32-bit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C/C++类型转换到底发生了什么[转]">
+<meta property="og:url" content="http://bigxing.github.io/2014/12/29/c-type-convert/index.html">
+<meta property="og:site_name" content="星星blog">
+<meta property="og:description" content="— 转载C/C++中， 浮点数，float以及 double 在内存中是怎样存储的？ 
+假如，我有32-bit">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C/C++类型转换到底发生了什么[转]">
+<meta name="twitter:description" content="— 转载C/C++中， 浮点数，float以及 double 在内存中是怎样存储的？ 
+假如，我有32-bit">
+  
+    <link rel="alternative" href="/atom.xml" title="星星blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">所思所想</p>
+		
+
+		
+			<div class="onoffswitch">
+			    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+			    <label class="onoffswitch-label" for="myonoffswitch">
+			        <span class="onoffswitch-inner"></span>
+			        <span class="onoffswitch-switch"></span>
+			    </label>
+			</div>
+		
+
+		<div class="switch-area">
+			<section class="first-part">
+				<nav class="header-menu">
+					<ul>
+					
+						<li><a href="/">主页</a></li>
+			        
+						<li><a href="/archives">所有文章</a></li>
+			        
+						<li><a href="/about">关于</a></li>
+			        
+					</ul>
+				</nav>
+				<nav class="header-nav">
+					<div class="social">
+						
+							<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+				        
+							<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+				        
+							<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+				        
+							<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+				        
+					</div>
+				</nav>
+			</section>
+			
+			
+			<section class="second-part">
+				<div class="widget tagcloud">
+					<a href="/tags/cgi/" style="font-size: 10px;">cgi</a><a href="/tags/http/" style="font-size: 13.33px;">http</a><a href="/tags/php/" style="font-size: 13.33px;">php</a><a href="/tags/思考/" style="font-size: 13.33px;">思考</a><a href="/tags/技术/" style="font-size: 16.67px;">技术</a><a href="/tags/技术-error/" style="font-size: 10px;">技术,error</a><a href="/tags/数据结构/" style="font-size: 20px;">数据结构</a><a href="/tags/服务器/" style="font-size: 13.33px;">服务器</a><a href="/tags/服务器，-c-c/" style="font-size: 10px;">服务器， c/c++</a><a href="/tags/算法/" style="font-size: 20px;">算法</a>
+				</div>
+			</section>
+			
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+			</hgroup>
+			
+			<p class="header-subtitle">所思所想</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-c-type-convert" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/12/29/c-type-convert/" class="article-date">
+  	<time datetime="2014-12-29T02:37:05.000Z" itemprop="datePublished">Dec 29 2014</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-c/">c/c++</a>
+  </div>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/服务器，-c-c/">服务器， c/c++</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      C/C++类型转换到底发生了什么[转]
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>— 转载<br>C/C++中， 浮点数，float以及 double 在内存中是怎样存储的？ </p>
+<p>假如，我有32-bit </p>
+<a id="more"></a>
+<p>C语言中，数据类型间的转换,主要体现在内存间的转换，或者可以说体现在 bit 的转换，数据类型在内存的中都是以 bit 的形式体现的。<br>C/C++</p>
+<ul>
+<li>char   1 byte</li>
+<li>short  2 bytes</li>
+<li>int    4 bytes</li>
+<li>long   4 bytes</li>
+<li>float  4 bytes</li>
+<li>double 8 bytes</li>
+</ul>
+<h2 id="来看几个简单的例子，就会明白数据类型在转换的时候究竟发生了什么。">来看几个简单的例子，就会明白数据类型在转换的时候究竟发生了什么。</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">char</span> ch =<span class="string">'A'</span>;  </span><br><span class="line"><span class="keyword">short</span> s = ch;  </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,s);</span><br></pre></td></tr></table></figure>
+<p>在console中的结果是 65。 </p>
+<p>在内存中 variable ch 是这样存储的</p>
+<table style="width:200px;"><tbody><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 65&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td></tr></tbody></table>
+
+<p>在内存中，数据类型都是以二进制的形式存储的，所以当看到一个十进制的数字的时候，应该时刻想着强大的数字 2<br>65 = 64 +1 = 2^6+2^0<br>char ch 占1个byte</p>
+<table style="width:600px;"><tbody><tr style="text-align:center"><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr></tbody></table>
+
+<p>short s = ch; 这行代码发生了什么？首先我们知道short是占2个bytes </p>
+<p>所以  char ch</p>
+<table style="width:600px;"><tr><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr></table>
+
+<p>short s  </p>
+<table style="width:600px;"><tbody><tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td><span style="color: red;">0</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">1</span></td></tr></tbody></table>
+
+<p>从上面表格可以看出 在将char ch赋值给 short s 时 只是将char ch的 8个bit copy到 short s 的低8位，而short s多余的8-bit 空间，就 just padded（填补）在这里由0填补. </p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">23</span>)+<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">21</span>)+<span class="built_in">pow</span>(<span class="number">2</span>,<span class="number">14</span>)+<span class="number">7</span>;<span class="comment">//2^23+2^21+2^14+7  </span></span><br><span class="line"><span class="keyword">short</span> s = i;  </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,s);</span><br></pre></td></tr></table></figure>
+<p>结果一定是 short s = 2^14+7.<br>上面之所以写成2的指数的形式，是为了方便书写2进制，来看下 int i 的存储形式</p>
+<p>0    0    0    0    0    0    0    0    1    0    1    0    0    0    0    0    0    1    0    0    0    0    0    0    0    0    0    0    0    1    1    1</p>
+<table style="width:600px;"><tbody><tr><td><span style="color: red;">0</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">0</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td></tr></tbody></table>
+
+<p>int 型 在内存中占32 bit 但是short 型只有16 bit的空间来储存，那么以16 bit的空间去存储32 bit 的 pattern， 显然不可以，所以在C/C++ 中，就简单的将int型的低位16位 copy到 short的16位 内存空间。至于高位16位没有发生移动。这个又叫做 bit pattern copy。<br>所有short s = 2^14+7</p>
+<h2 id="再来看个简单的例子。">再来看个简单的例子。</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">short</span> s = -<span class="number">1</span>;  </span><br><span class="line"><span class="keyword">int</span> i = s;  </span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"%d"</span>,i);</span><br></pre></td></tr></table></figure>
+<p>variable short s的存储形式 为 </p>
+<table style="width:600px;"><tbody><tr><td><span style="color: blue;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td></tr></tbody></table><br>注意，最高位的 1， 仅仅为一个 符号，sign，只起到标记+/-的作用。这有<a href="http://chuansu.iteye.com/blog/1435150" target="_blank" rel="external">详细的介绍</a> , 这里就不多讲了<br><br>当 evaluate int i = s;时， int i 的内存又是如何的？<br><table style="width:600px;"><tbody><tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td><td><span style="color: blue;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td><td><span style="color: red;">1</span></td></tr></tbody></table>
+
+<blockquote>
+<p>在讲到第一个例子的时候，我们提到过，对于short 多余的8 bit的空间 用0填充了。<br>这里，因为int型 有32-bit的足够大的储存空间，所有根据bit pattern copy,就可以简单的将上面short s =-1的 16-bit copy到 int型的 32-bit储存空间，而不丢失信息。<br>如果和第一个例子一样，将剩余的16-bit都用0填充，那么对于int i的最高位，也就是标记位，为0，表示正数，这就不相符了。所以在C/C++中，就简单的将 short s最高位的sign 1 扩展到其余的16-bit. 这个就称作 sign extention。 </p>
+</blockquote>
+<h2 id="最后看一道我们学校的_考试题">最后看一道我们学校的 考试题</h2><ul>
+<li>What is the output of the following program (1P) <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># <span class="keyword">include</span> &lt;stdio.h&gt;  </span></span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span>&#123; </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> uc1 = <span class="number">0x256</span>;  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> uc2 = <span class="number">12</span>;  </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d %d | %x %x\n"</span>,  </span><br><span class="line">            uc1,uc2,uc1,uc2);  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>16进制与2进制的相互转化一定要熟悉掌握<br>0x256<br>现转化2 -&gt; 0010;<br>     5 -&gt; 0101;<br>     6 -&gt; 0110;<br>所以0x256 的 二进制形式为 0010 0101 0110。<br>由上面说到的 bit pattern copy 可以知道<br>unsigned char uc1 = 0x256. 只能将低8位 copy 到 char uc1的8位存储空间中。<br>所有 char uc1</p>
+<table style="width:600px;"><tbody><tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td></tr></tbody></table>
+
+<p>然后转化为 10进制 就为 2^1+2^2+2^4+2^6 = 86; %d(10进制) uc1 = 86;<br>%x,是指 去掉0x的16进制数， uc1 = 86; 由10进制转化为16进制，以2进制为桥梁，<br>86 的二进制为0101 0110<br>然后每四个bit一组 分别转化16进制 0101 -&gt; 2^0+2^2 = 5;<br>                             0110 -&gt; 2^1+2^2 = 6;<br>所以86的16进制为 56。 %x uc1 = 56; </p>
+<p>同理可得出 %d uc2 = 12; %x uc2 = C。 </p>
+<blockquote>
+<p>本文主要介绍了 在C/C++ 类型转化时发生了什么？ int short char间的转化。<br>那么float double与 int或者 short 发生转化时又是怎样的？以及float double在内存中又是怎么存储的？ </p>
+</blockquote>
+<p>转自： <a href="http://chuansu.iteye.com/blog/1484742" target="_blank" rel="external">http://chuansu.iteye.com/blog/1484742</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/12/29/hexo-deploy-config-error/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          运行： hexo deploy 命令时候，报错 bad config file line
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/20/http-guide-note-one/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTTP Guide 阅读笔记(一)</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="c-type-convert" data-title="C/C++类型转换到底发生了什么[转]" data-url="http://bigxing.github.io/2014/12/29/c-type-convert/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 星星(bigxing)
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?7d4572811c8b3d849cded7f14c0ab880";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  </div>
+</body>
+</html>

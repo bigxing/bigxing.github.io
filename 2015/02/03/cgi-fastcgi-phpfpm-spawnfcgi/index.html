@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CGI, FastCGI, PHP-FPM, SPAWN-FCGI, Nginx 它们之间的关系 | 星星blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说明：在好长一段时间里，我都不知道 CGI, FastCGI, PHP-FPM, SPAWN-FCIG, Nginx这些协议和软件他们之间到底是一种什么关系？ 为什么会有这么多的软件，协议呢？他们之间是怎么协同工作的？为了弄懂他们之间的关系，我看了一些文章，在此做个笔记。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CGI, FastCGI, PHP-FPM, SPAWN-FCGI, Nginx 它们之间的关系">
+<meta property="og:url" content="http://bigxing.github.io/2015/02/03/cgi-fastcgi-phpfpm-spawnfcgi/index.html">
+<meta property="og:site_name" content="星星blog">
+<meta property="og:description" content="说明：在好长一段时间里，我都不知道 CGI, FastCGI, PHP-FPM, SPAWN-FCIG, Nginx这些协议和软件他们之间到底是一种什么关系？ 为什么会有这么多的软件，协议呢？他们之间是怎么协同工作的？为了弄懂他们之间的关系，我看了一些文章，在此做个笔记。">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CGI, FastCGI, PHP-FPM, SPAWN-FCGI, Nginx 它们之间的关系">
+<meta name="twitter:description" content="说明：在好长一段时间里，我都不知道 CGI, FastCGI, PHP-FPM, SPAWN-FCIG, Nginx这些协议和软件他们之间到底是一种什么关系？ 为什么会有这么多的软件，协议呢？他们之间是怎么协同工作的？为了弄懂他们之间的关系，我看了一些文章，在此做个笔记。">
+  
+    <link rel="alternative" href="/atom.xml" title="星星blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<div class="profilepic">
+			<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+		</div>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">所思所想</p>
+		
+
+		
+			<div class="onoffswitch">
+			    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+			    <label class="onoffswitch-label" for="myonoffswitch">
+			        <span class="onoffswitch-inner"></span>
+			        <span class="onoffswitch-switch"></span>
+			    </label>
+			</div>
+		
+
+		<div class="switch-area">
+			<section class="first-part">
+				<nav class="header-menu">
+					<ul>
+					
+						<li><a href="/">主页</a></li>
+			        
+						<li><a href="/archives">所有文章</a></li>
+			        
+						<li><a href="/about">关于</a></li>
+			        
+					</ul>
+				</nav>
+				<nav class="header-nav">
+					<div class="social">
+						
+							<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+				        
+							<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+				        
+							<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+				        
+							<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+				        
+					</div>
+				</nav>
+			</section>
+			
+			
+			<section class="second-part">
+				<div class="widget tagcloud">
+					<a href="/tags/cgi/" style="font-size: 10px;">cgi</a><a href="/tags/http/" style="font-size: 13.33px;">http</a><a href="/tags/php/" style="font-size: 13.33px;">php</a><a href="/tags/思考/" style="font-size: 13.33px;">思考</a><a href="/tags/技术/" style="font-size: 16.67px;">技术</a><a href="/tags/技术-error/" style="font-size: 10px;">技术,error</a><a href="/tags/数据结构/" style="font-size: 20px;">数据结构</a><a href="/tags/服务器/" style="font-size: 13.33px;">服务器</a><a href="/tags/服务器，-c-c/" style="font-size: 10px;">服务器， c/c++</a><a href="/tags/算法/" style="font-size: 20px;">算法</a>
+				</div>
+			</section>
+			
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay"></div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="https://avatars1.githubusercontent.com/u/2263763?v=2&amp;s=460">
+			</div>
+
+			<hgroup>
+			  <h1 class="header-author"><a href="/">星星(bigxing)</a></h1>
+			</hgroup>
+			
+			<p class="header-subtitle">所思所想</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/about">关于</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/bigxing" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/kissweb" title="weibo">weibo</a>
+			        
+						<a class="rss" target="_blank" href="/#" title="rss">rss</a>
+			        
+						<a class="facebook" target="_blank" href="/#" title="facebook">facebook</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <article id="post-cgi-fastcgi-phpfpm-spawnfcgi" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/03/cgi-fastcgi-phpfpm-spawnfcgi/" class="article-date">
+  	<time datetime="2015-02-03T02:23:18.000Z" itemprop="datePublished">Feb 3 2015</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/php/">php</a>
+  </div>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/cgi/">cgi</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/php/">php</a></li></ul>
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CGI, FastCGI, PHP-FPM, SPAWN-FCGI, Nginx 它们之间的关系
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>说明：在好长一段时间里，我都不知道 CGI, FastCGI, PHP-FPM, SPAWN-FCIG, Nginx这些协议和软件他们之间到底是一种什么关系？ 为什么会有这么多的软件，协议呢？他们之间是怎么协同工作的？为了弄懂他们之间的关系，我看了一些文章，在此做个笔记。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="一：sapi和cgi,_fastcig,_cli的关系？">一：sapi和cgi, fastcig, cli的关系？</h2><p>在php中， sapi是cgi， fastcgi，cli实现的统称。<br><b>SAPI:</b> <code>Server Application Programming Interface</code>-服务器公共网关接口. (php里面封装了很多SAPI， 它的作用是和其他的http服务器交互)。<br>有了这个公共接口，那么<b>PHP解析器</b> 和 <b>http服务器</b> 就可以<b>解耦</b>， php解析器（进程来看表现就是php-cgi这个进程）和 http服务器可以独自运行， 通过sapi彼此之间进行通信, 而2者之间进行通信的格式标准是什么呢？ 就是CGI，</p>
+<blockquote>
+<p><code>sapi</code>实现了<code>cgi</code>这个协议.</p>
+</blockquote>
+<h2 id="二：什么是CLI,_CGI,_FastCGI">二：什么是CLI, CGI, FastCGI</h2><p><b>2.1 CLI: 名称是 command line interface - 命令行公共接口</b><br>比如你在shell在运行php的时候，就是通过这个接口和php解析器交互的.</p>
+<p><b>2.2 CGI:  Common Gateway Interface - 公共网关接口</b><br>它是一个协议. 假如apache得到一个request信息， 那么它就 fork一个进程出来， 接管这个request请求， 这样的弊端是，每次请求都要fork一个进程出来， 性能不行</p>
+<p><b>2.3 FastCGI -  CGI 的改进版本</b><br>它是cgi的一个改进版本，为什么要这个改进版本呢？因为cgi的性能比较差。 如果动态请求进来的时候，服务器都得fork出一个进程出来，而fork出进程过程中，它还要执行很多初始化的操作，<br>php环境初始化，变量初始化， Module 的初始化，还有 request 的初始化，php解析器执行玩这个请求后，module的关闭操作， request的关闭操作.</p>
+<p>而fastcgi就简略了其中的几个环节。它会根据配置文件先fork出几个php-cgi的常驻进程，请求来了，其中的一个php-cgi就会接管这个进程，处理完后，就会关闭这个request.<br>它少了php环境初始化，Module初始化，Module关闭。 它只执行 request初始化和 request关闭。因为前面几个步骤是随着http服务器就已经初始化好了.</p>
+<h2 id="三：_http服务器,_cgi/FastCGI_和_php解析器_之间的关系？">三： http服务器, cgi/FastCGI 和 php解析器 之间的关系？</h2><p>客户端通过http协议过来的请求，如果是静态文件（html，jpg）， 那么<code>http服务器</code>，比如nginx服务器，就会直接返回静态文件给客户端用户， 而不需要和<code>cgi/FastCGI</code>通信。这也可以说明为什么访问静态文件效率高，执行会很快，因为少了后面的执行流程。跑题了，- -!</p>
+<p>如果是动态文件，比如以 <code>.php</code> 结尾的文件，那么nginx就会转发这个请求给后端的php解析器，让它来处理这个请求。 nginx是通过什么来和php解析器通信的呢？ 就是<code>cgi/FastCGI</code> 这个标准协议来传递数据的。</p>
+<p><b>http服务器又是通过什么和cgi/FastCGI通信的呢？</b><br>通过unix socket， socket， ip方式来进行通信.</p>
+<h2 id="四：_php-fpm_和_spawn-fcgi是什么？">四： php-fpm 和 spawn-fcgi是什么？</h2><p><code>FastCGI</code>以接口的方式在脚本解析器上启动一个或多个守护进程，也就是php-cgi，这些进程就是<code>FastCGI</code>管理器，而这些进程是哪个来管理的呢？就是<code>php-fpm</code>和<code>spawn-fcgi</code>，他们就是支持php的2个<code>FastCGI</code>进程管理器。<br><code>spawn-fcgi</code> 原先是 lighttpd 里面的， 目前已经独立成一个项目。 所以他现在也可以支持 Nginx.<br><code>php-fpm</code>和<code>spawn-fcgi</code>提供了更好的php进程管理方式， 可以有效的控制内存和进程，可以平滑重载php配置.<br><b>在php5.3.3 已经集成了php-fpm，用编译方式安装PHP，在./configure的时候带—enable-fpm参数即可开启php-fpm。</b></p>
+<blockquote>
+<p>php-cgi 是运行php<br>php-fpm, spawn-fcgi是守护php-cgi进程</p>
+</blockquote>
+<h2 id="五：FastCGI的工作原理">五：FastCGI的工作原理</h2><p>一般情况下，FastCGI的整个工作流程是这样的：</p>
+<ol>
+<li>Web Server启动时载入FastCGI进程管理器（IIS ISAPI或Apache Module)</li>
+<li>FastCGI进程管理器自身初始化，启动多个CGI解释器进程(可见多个php-cgi)并等待来自Web Server的连接。</li>
+<li>当客户端请求到达Web Server时，FastCGI进程管理器选择并连接到一个CGI解释器。 Web server将CGI环境变量和标准输入发送到FastCGI子进程php-cgi。</li>
+<li>FastCGI子进程完成处理后将标准输出和错误信息从同一连接返回Web Server。当FastCGI子进程关闭连接时， 请求便告处理完成。FastCGI子进程接着等待并处理来自FastCGI进程管理器(运行在Web Server中)的下一个连接。 在CGI模式中，php-cgi在此便退出了。</li>
+</ol>
+<h2 id="六：参考链接">六：参考链接</h2><p><a href="http://ixdba.blog.51cto.com/2895551/806622/" target="_blank" rel="external">http://ixdba.blog.51cto.com/2895551/806622/</a><br><a href="http://segmentfault.com/q/1010000000256516" target="_blank" rel="external">http://segmentfault.com/q/1010000000256516</a><br><a href="http://bbs.csdn.net/topics/350103512" target="_blank" rel="external">http://bbs.csdn.net/topics/350103512</a><br><a href="http://www.php-internals.com/book/?p=chapt02/02-02-03-fastcgi" target="_blank" rel="external">http://www.php-internals.com/book/?p=chapt02/02-02-03-fastcgi</a></p>
+<blockquote>
+<p>如果有什么错误的地方，还请大家指出来， 我一定改正，向大家好好学习.</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/13/php-variable-count-copy-on-write/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          PHP的引用计数和写时复制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/07/Linux-performance-view-and-tools/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux系统性能一般怎么检查？有哪些工具？</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="cgi-fastcgi-phpfpm-spawnfcgi" data-title="CGI, FastCGI, PHP-FPM, SPAWN-FCGI, Nginx 它们之间的关系" data-url="http://bigxing.github.io/2015/02/03/cgi-fastcgi-phpfpm-spawnfcgi/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 星星(bigxing)
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <script src="/js/main.js" type="text/javascript"></script>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?7d4572811c8b3d849cded7f14c0ab880";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+  </div>
+</body>
+</html>
